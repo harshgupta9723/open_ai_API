@@ -29,7 +29,7 @@ def get_job_data():
     db = get_connection()
     
     cursor = db.cursor()
-    query = "SELECT job_title FROM job limit 1"
+    query = "SELECT job_title, clean_job_description FROM job where html_job_description != '' limit 5"
     cursor.execute(query)
     results = cursor.fetchall()
     return results
