@@ -18,7 +18,7 @@ class Services:
         url = os.getenv("URL")
 
         payload = json.dumps({
-          "prompt": "Job roles for "+ job_title +" jobs in USA",
+          "prompt": f"{job_title} job title\n\nlist of distinct job roles:",
           "temperature": 0,
           "max_tokens": 60,
           "top_p": 1,
@@ -34,7 +34,7 @@ class Services:
 
         return response.json()['choices'][0]['text']
       
-    def job_category(self, desc):
+    def job_category_prediction(self, desc):
         """
         This function is used to generate the interview question based on
         job title.
