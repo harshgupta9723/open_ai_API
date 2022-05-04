@@ -26,7 +26,7 @@ def cleaner(test_string):
     
     if '' in final_string:
         final_string.remove('')
-
+    
     return final_string
 
 
@@ -62,7 +62,7 @@ def job_category():
 
         job_category = cleaner(job_category)
 
-        print(job_category)
+        print(job_category[0].replace(' Category:', ''))
        
        
 job_category() 

@@ -59,6 +59,7 @@ class Services:
         response = requests.request("POST", url, headers=headers, data=payload)
 
         return response.json()['choices'][0]['text']
+
     
     def interview_question(self, job_role):
         """
