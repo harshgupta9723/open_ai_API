@@ -75,7 +75,7 @@ class Services:
         })
         
         headers = {
-          'Authorization': 'Bearer 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',
+          'Authorization': os.getenv('KEY'),
           'Content-Type': 'application/json'
         }
 
@@ -98,7 +98,7 @@ class Services:
         })
         
         headers = {
-          'Authorization': 'Bearer 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',
+          'Authorization': os.getenv('KEY'),
           'Content-Type': 'application/json'
         }
 
