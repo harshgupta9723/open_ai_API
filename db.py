@@ -2,9 +2,8 @@
 import os
 import sqlalchemy
 from sqlalchemy import create_engine
-import pymysql
 
-#connect to mysql
+
 def get_connection():
 
     user = os.getenv("DBUSER")
@@ -21,6 +20,7 @@ def get_connection():
     db = sqlEngine.raw_connection()
 
     return db
+
 
 def get_job_data():
     """
