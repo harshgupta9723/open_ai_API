@@ -60,25 +60,22 @@ class Services:
 
         return response.json()['choices'][0]['text']
 
-    
-    def interview_question(self, job_role):
-        """
-        This function is used to generate the interview question based on
-        job title.
-        """
-        
+
+    def job_benefits_prediction(self, desc):
+
         url = os.getenv("URL")
 
         payload = json.dumps({
-          "prompt": f"Create a list of 8 questions for my interview with a {job_role}:\n",
+          "prompt": f"{desc}\n\nQ. what are benefits of this job?",
           "temperature": 0,
-          "max_tokens": 60,
+          "max_tokens": 100,
           "top_p": 1,
           "frequency_penalty": 0,
           "presence_penalty": 0
         })
+        
         headers = {
-          'Authorization': os.getenv('KEY'),
+          'Authorization': 'Bearer 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',
           'Content-Type': 'application/json'
         }
 
@@ -86,28 +83,25 @@ class Services:
 
         return response.json()['choices'][0]['text']
 
-    def predict_benefits(self, desc):
-        """
-        This function is used to generate the interview question based on
-        job title.
-        """
-        
+
+    def job_qualification_prediction(self, desc):
+
         url = os.getenv("URL")
 
         payload = json.dumps({
-          "prompt": f"Predict the job benefits :- {desc}:\n",
+          "prompt": f"{desc}\n\nQ. What qualifications are needed for this job?",
           "temperature": 0,
-          "max_tokens": 60,
+          "max_tokens": 100,
           "top_p": 1,
           "frequency_penalty": 0,
           "presence_penalty": 0
         })
+        
         headers = {
-          'Authorization': os.getenv('KEY'),
+          'Authorization': 'Bearer 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',
           'Content-Type': 'application/json'
         }
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
         return response.json()['choices'][0]['text']
-

@@ -47,9 +47,10 @@ def job_roles():
         
         print(clean_job_roles)
     
+
 def job_category():
     """
-    This function is used to generate the interview question based on
+    This function is used to generate job category based on
     job description.
     """
     job_data = get_job_data()
@@ -64,6 +65,51 @@ def job_category():
 
         print(job_category[0].replace(' Category:', ''))
        
-       
-job_category() 
-job_roles()
+
+def job_benefits():
+    """
+    This function is used to generate job benefits based on
+    job description.
+    """
+    job_data = get_job_data()
+    
+    JOB_DESCRIPTION = 1
+    
+    for job in job_data:
+        job_description = job[JOB_DESCRIPTION]
+        job_benefits = services.job_benefits_prediction(job_description)
+        
+        #'A.' means answer.
+        try:
+            job_benefits = job_benefits.split('A. ', 1)[1]
+        except:
+            pass
+        
+        print(job_benefits)
+        
+
+def job_qualifications():
+    """
+    This function is used to generate job qualifications based on
+    job description.
+    """
+    job_data = get_job_data()
+    
+    JOB_DESCRIPTION = 1
+    
+    for job in job_data:
+        job_description = job[JOB_DESCRIPTION]
+        job_qualifications = services.job_qualification_prediction(job_description)
+        
+        try:
+            job_qualifications = job_qualifications.split('A. ', 1)[1]
+        except:
+            pass
+
+        print(job_qualifications)
+        
+if __name__ == "__main__":
+    # job_roles()
+    # job_category()
+    # job_benefits()
+    job_qualifications()
