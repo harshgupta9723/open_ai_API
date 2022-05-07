@@ -46,14 +46,14 @@ class Services:
         url = os.getenv("URL")
 
         payload = json.dumps({
-          "prompt": f"{desc}\n\nCategory:",
+          "prompt": f"\nQ:  Which category belongs to this job description:\njob description = \"\"\"{desc}\"\"\"\n\ncategories are :- \nCleaning and Facilities\nAdvertising and Marketing\nMedia, Communications and Writing\nArt, Fashion and Design\nBusiness Operations, Computer and IT\nScience and Engineering\nProtective Services\nFarming and Outdoors\nLegal\nProperty\nSales and Retail\nManufacturing and Warehouse\nTransportation and Logistics\nEntertainment and Travel\nSports Fitness and Recreation\nEducation\nConstruction\nInstallation, Maintenance and Repair\nManufacturing and Warehouse\nRestaurant and Hospitality\nEnergy and Mining\nAccounting and Finance\nAdmin and Office\nCustomer Service\nManagement\nHuman Resources\nHealthcare\nPersonal Care and Services\nSocial Services and Non-Profit\nAnimal Care\n",          
           "temperature": 0,
-          "max_tokens": 60,
+          "max_tokens": 100,
           "top_p": 1,
           "frequency_penalty": 0,
-          "presence_penalty": 0
+          "presence_penalty": 0,
         })
-
+        
         headers = {
           'Authorization': os.getenv('KEY'),
           'Content-Type': 'application/json'

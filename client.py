@@ -44,7 +44,7 @@ def job_type_parser(desc_list):
     return types
 
 
-def extractSalary(s):
+def extract_salary(s):
     """
     This function is used to extract salary form a given
     job description
@@ -53,148 +53,123 @@ def extractSalary(s):
     if "$" in s:
         return s[s.index('$'):]
     else:
-        return s
+        return s    
 
-def job_roles():
+
+def job_roles(job_title):
     """
     This function is used to predict the job roles of a user based on the
     job title.
     """
     
-    job_data = get_job_data()
-    
-    JOB_TITLE = 0
-    
-    for job in job_data:
-        job_title = job[JOB_TITLE]
-        job_role = services.job_roles_prediction(job_title)
+    job_role = services.job_roles_prediction(job_title)
 
-        clean_job_roles = cleaner(job_role)
-        
-        print(clean_job_roles)
+    clean_job_roles = cleaner(job_role)
+    
+    return clean_job_roles
     
 
-def job_category():
+def job_category(job_description):
     """
     This function is used to generate job category based on
     job description.
     """
-    
-    job_data = get_job_data()
-    
-    JOB_DESCRIPTION = 1
-    
-    for job in job_data:
-        job_description = job[JOB_DESCRIPTION]
-        job_category = services.job_category_prediction(job_description)
 
-        job_category = cleaner(job_category)
+    job_category = services.job_category_prediction(job_description)
 
-        print(job_category[0].replace(' Category:', ''))
-       
+    try:
+        job_category = job_category.split('of ', 1)[1]
+    except:
+        pass
 
-def job_benefits():
+    job_category = cleaner(job_category)
+
+    return job_category
+
+
+def job_benefits(job_description):
     """
     This function is used to generate job benefits based on
     job description.
     """
+
+    job_benefits = services.job_benefits_prediction(job_description)
     
-    job_data = get_job_data()
+    #'A.' means answer.
+    try:
+        job_benefits = job_benefits.split('A. ', 1)[1]
+    except:
+        pass
     
-    JOB_DESCRIPTION = 1
-    
-    for job in job_data:
-        job_description = job[JOB_DESCRIPTION]
-        job_benefits = services.job_benefits_prediction(job_description)
-        
-        #'A.' means answer.
-        try:
-            job_benefits = job_benefits.split('A. ', 1)[1]
-        except:
-            pass
-        
-        print(job_benefits)
+    return job_benefits
         
 
-def job_qualifications():
+def job_qualifications(job_description):
     """
     This function is used to generate job qualifications based on
     job description.
     """
-    
-    job_data = get_job_data()
-    
-    JOB_DESCRIPTION = 1
-    
-    for job in job_data:
-        job_description = job[JOB_DESCRIPTION]
-        job_qualifications = services.job_qualification_prediction(job_description)
-        
-        try:
-            job_qualifications = job_qualifications.split('A. ', 1)[1]
-        except:
-            pass
 
-        print(job_qualifications)
+    job_qualifications = services.job_qualification_prediction(job_description)
+    
+    try:
+        job_qualifications = job_qualifications.split('A. ', 1)[1]
+    except:
+        pass
 
-def job_requriments():
+    return job_qualifications
+
+
+def job_requriments(job_description):
     """
     This function is used to generate the job requriments based on
     job description.
     """
-    job_data = get_job_data()  
     
-    JOB_DESCRIPTION = 1
-    
-    for job in job_data:
-        job_description = job[JOB_DESCRIPTION]
-        job_category = services.job_requriment_prediction(job_description)
+    job_requirenment = services.job_requriment_prediction(job_description)
 
-        job_category = cleaner(job_category)
+    job_requirenment = cleaner(job_requirenment)
 
-        print(job_category)
+    return job_requirenment
        
 
-def job_salary_prediction():
+def job_salary_prediction(job_description):
     """
     This function is used to extract salary form a given 
     job description
     """
     
-    job_data = get_job_data()
+    job_salary = services.job_salary_prediction(job_description)
+    job_salary = extract_salary(job_salary)
     
-    JOB_DESCRIPTION = 1
-    
-    for job in job_data:
-        job_description = job[JOB_DESCRIPTION]
-        job_description = job
-        job_category = services.job_salary_prediction(job_description)
-        job_category = extractSalary(job_category)
-        print(job_category)
-        
+    return job_salary
 
-def job_type_prediction():
+
+def job_type_prediction(job_description):
     """
     This function is used to extract type of a job form a given 
     job description
     """
-    
-    job_data = get_job_data() 
-    JOB_DESCRIPTION = 1
-    
-    for job in job_data:
-        job_description = job[JOB_DESCRIPTION]
-        job_category = services.job_type_prediction(job_description)
 
-        job_category = cleaner(job_category)
-        job_category = job_type_parser(job_category)
-        print(job_category)
+    job_type = services.job_type_prediction(job_description)
+    job_type = cleaner(job_type)
+    job_type = job_type_parser(job_type)
+
+    return job_type
 
 
 if __name__ == "__main__":
-    job_roles()
-    # job_category()
-    # job_benefits()
-    # job_qualifications()
-    # job_type_prediction()
-    # job_salary_prediction()
+    
+    job_data = get_job_data()
+    
+    for job in job_data:
+        job_title = job[0]
+        job_description = job[1]
+        
+        job_roles(job_title)
+        job_category(job_description)
+        job_benefits(job_description)
+        job_qualifications(job_description)
+        job_requriments(job_description)
+        job_salary_prediction(job_description)
+        job_type_prediction(job_description)
